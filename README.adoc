@@ -1,50 +1,40 @@
-= mbg-addannotation-plugin
+= mbg-rename-plugin
 
 == Overview
-これはMyBatisGeneratorで生成するModel/Entityに対して任意のアノテーションを付与するための汎用プラグインです。
+これはMyBatisGeneratorで生成する条件の名前を変更するためのプラグインです。 +
 
 == Description
-MyBatisGeneratorでは、Model/Entityに対して通常の方法ではアノテーションを割り振ることはできません。このプラグインを利用すると単純なアノテーションを割り振りたい場合に簡単に実現することができます。 +
-ただし、BeanValidationのアノテーションのように複数のアノテーション等を付与するための用途には単純すぎるため向いていません。
+MyBatisGeneratorでは、CRUD操作で利用するテーブルに対する様々な条件を表すことができるExampleクラスというものを出力することができます。 +
+しかし、Exampleという名称はあまりにも最終成果物としてふさわしくありません。 +
+そこでExampleというクラス名を任意のクラス名に変更できるプラグインがMyBatisGeneratorのプラグインとして公開されていますが、メソッド名やその引数にいたるところまでは変更の対象として考えられていません。+
+このプラグインは既に存在するプラグインの内容を補完すべく以下の機能を有します。
+
+- メソッド名の置換
+- メソッドの引数名の置換
+- メソッドの引数のアノテーションの属性値の置換
+ｰ XMLマッパーに存在するExample/exampleの置換
+
+上記を対応することで現状のMyBatisGeneratorでのExampleは消えることでしょう。
+
 
 == How To Use
-=== 設定ファイルの作成
-このプラグイン独自のYamlにてアノテーション付与の指示を行うため、作成します。
-
-[source,YAML]
-----
-annotations:
-- fullQueryAnnotationName: com.example.Annoataion //<1>
-  attribute: value = "example" //<2>
-  tableConfigs:
-  - tableName: "example_table" //<3>
-    regexp: false //<4>
-    columnConfigs:
-    - columnName: "example_column1" //<5>
-      regexp: false //<6>
-    - columnName: "example_column2"
-      regexp: false
-
-----
-
-<1> 追加したいアノテーションをFQCNで記載します。
-<2> アノテーションの属性値を全て記載する。そのまあ出力されます。
-<3> 対象としたテーブル名を記載します。
-<4> 正規表現でテーブル名を扱いたい場合は「true」とします。
-<5> 対象としたカラム名を記載します。
-<6> 正規表現でカラム名を扱いたい場合は「true」とします。
-
 === MyBatisGeneratorの設定ファイルの記述
-
-MyBatisGeneratorの出力設定ファイルにプラグイン利用の定義を行います。 +
-この定義の他にこのプラグインのクラスパス設定等は利用する起動方法に合わせて設定してください。
+このプラグインはMyBatisGeneratorが提供している名称変更プラグインと極力記述を同じようにするようにしました。
 
 [source,XML]
 ----
-<plugin type="com.zomu.t.mbg.addannotation.plugin.AddFieldAnnotaionPlugin">
-	<property name="configFilePath" value="設定ファイルフルパス"/>
+<plugin type="com.zomu.t.mbg.rename.plugin.RenameExamplePlugin">
+	<property name="searchString" value="Example"/> //<1>
+	<property name="replaceString" value="Criteria"/> //<2>
+	<property name="searchStringLower" value="example"/> //<3>
+	<property name="replaceStringLower" value="criteria"/> //<4>
 </plugin>
 ----
+
+<1> 置換対象の文字列を指定。この指定はメソッド名の置換に利用されます。
+<2> 置換する文字列を指定。この指定はメソッド名の置換に利用されます。
+<3> 置換対象の文字列を指定。この指定は引数名、引数のアノテーションの属性値の置換に利用されます。
+<4> 置換する文字列を指定。この指定は引数名、引数のアノテーションの属性値の置換に利用されます。
 
 == How To Build
 Gradleの単純なプロジェクトであるため、以下のコマンドでビルド可能です。 +
