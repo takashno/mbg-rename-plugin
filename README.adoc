@@ -6,7 +6,7 @@
 == Description
 MyBatisGeneratorでは、CRUD操作で利用するテーブルに対する様々な条件を表すことができるExampleクラスというものを出力することができます。 +
 しかし、Exampleという名称はあまりにも最終成果物としてふさわしくありません。 +
-そこでExampleというクラス名を任意のクラス名に変更できるプラグインがMyBatisGeneratorのプラグインとして公開されていますが、メソッド名やその引数にいたるところまでは変更の対象として考えられていません。+
+そこでExampleというクラス名を任意のクラス名に変更できるプラグインがMyBatisGeneratorのプラグインとして公開されていますが、メソッド名やその引数にいたるところまでは変更の対象として考えられていません。 +
 このプラグインは既に存在するプラグインの内容を補完すべく以下の機能を有します。
 
 - メソッド名の置換
@@ -24,10 +24,10 @@ MyBatisGeneratorでは、CRUD操作で利用するテーブルに対する様々
 [source,XML]
 ----
 <plugin type="com.zomu.t.mbg.rename.plugin.RenameExamplePlugin">
-	<property name="searchString" value="Example"/> //<1>
-	<property name="replaceString" value="Criteria"/> //<2>
-	<property name="searchStringLower" value="example"/> //<3>
-	<property name="replaceStringLower" value="criteria"/> //<4>
+  <property name="searchString" value="Example"/> //<1>
+  <property name="replaceString" value="Criteria"/> //<2>
+  <property name="searchStringLower" value="example"/> //<3>
+  <property name="replaceStringLower" value="criteria"/> //<4>
 </plugin>
 ----
 
