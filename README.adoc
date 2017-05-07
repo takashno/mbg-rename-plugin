@@ -12,7 +12,7 @@ MyBatisGeneratorでは、CRUD操作で利用するテーブルに対する様々
 - メソッド名の置換
 - メソッドの引数名の置換
 - メソッドの引数のアノテーションの属性値の置換
-ｰ XMLマッパーに存在するExample/exampleの置換
+- XMLマッパーに存在するExample/exampleの置換
 
 上記を対応することで現状のMyBatisGeneratorでのExampleは消えることでしょう。
 
